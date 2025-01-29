@@ -1,3 +1,5 @@
+import * as alt from 'alt-server';
+
 export default {
     name: 'character',
     description: 'Get information about a character',
@@ -13,3 +15,7 @@ export default {
         }, 1000);
     },
 }
+
+alt.onRpc('view:characterSelection:done', (player) => {
+    player.spawn((player as any).lastPosition);
+});

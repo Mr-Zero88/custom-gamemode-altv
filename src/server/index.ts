@@ -10,10 +10,6 @@ chat.registerCmd(vehicle.name, vehicle.execute);
 chat.registerCmd(reload.name, reload.execute);
 chat.registerCmd(character.name, character.execute);
 
-alt.onRpc('view:characterSelection:done', (player) => {
-    player.spawn((player as any).lastPosition);
-});
-
 alt.on('playerConnect', (player) => {
     // Sends a message to the logged-in player
     chat.send(player, `Welcome to the server ${player.name}`, 1);
