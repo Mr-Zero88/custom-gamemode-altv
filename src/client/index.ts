@@ -35,8 +35,10 @@ alt.onRpc('view:characterSelection:show', () => {
 });
 
 alt.onRpc('vehicle:enter', (vehicleId, seat) => {
-    if (!native.isVehicleSeatFree(vehicleId, seat, false)) return false;
-    native.setPedIntoVehicle(alt.Player.local.scriptID, vehicleId, seat);
+    let vehicle = alt.Vehicle.getByRemoteID(vehicleId);
+    console.log(`Entering vehicle ${vehicleId} ${vehicle} at seat ${seat}.`);
+    console.log(`Seat ${seat} is ${native.isVehicleSeatFree(vehicle, seat, false)}.`);
+    native.setPedIntoVehicle(alt.Player.local, vehicle, seat);
     return true;
 });
 
