@@ -19,7 +19,13 @@ const reloadCommand = {
     parameters: [{ name: 'addon' }],
 };
 
-// Adds a command to the player
+const characterCommand = {
+    name: 'character',
+    description: 'Change the player character.'
+};
+
+// /spawn [x] [y] [z]
+chat.addSuggetionAll(spawnCommand);
 chat.registerCmd(spawnCommand.name, (player, args) => {
     if (args.length === 0) player.spawn(0, 0, 72);
     else if (args.length === 3) {
@@ -28,7 +34,8 @@ chat.registerCmd(spawnCommand.name, (player, args) => {
     }
 });
 
-// Adds a command to the player
+// /vehicle [model]
+chat.addSuggetionAll(vehicleCommand);
 chat.registerCmd(vehicleCommand.name, (player, args) => {
     if (args.length === 0) chat.send(player, `Usage: /${vehicleCommand.name} [model]`);
     else {
@@ -37,7 +44,8 @@ chat.registerCmd(vehicleCommand.name, (player, args) => {
     }
 });
 
-// Adds a command to the player
+// /reload [addon]
+chat.addSuggetionAll(reloadCommand);
 chat.registerCmd(reloadCommand.name, (player, args) => {
     if (args.length === 0) {
         alt.getAllResources().forEach((resource) => {
@@ -49,15 +57,17 @@ chat.registerCmd(reloadCommand.name, (player, args) => {
     }
 });
 
+// /character
+chat.addSuggetionAll(characterCommand);
+chat.registerCmd(characterCommand.name, (player, args) => {
+    player.emitRpc('view:characterSelection:show');
+});
+
 alt.on('playerConnect', (player) => {
     // Sends a message to the logged-in player
     chat.send(player, `Welcome to the server ${player.name}`, 1);
     // Sends a message to all players as well as the one who joined
     chat.broadcast(`Player ${player.name} has joined the server`, 1);
-    // Adds command a suggestion to the player
-    chat.addSuggestion(player, spawnCommand);
-    chat.addSuggestion(player, vehicleCommand);
-    chat.addSuggestion(player, reloadCommand);
 });
 
 alt.on('playerDisconnect', (player) => {
