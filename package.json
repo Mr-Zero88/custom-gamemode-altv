@@ -23,6 +23,7 @@
     "typescript": "^5.7.3"
   },
   "dependencies": {
+    "@altv/types-natives": "^16.2.1",
     "vchat": "github:5exyGuy/altv-vchat"
   },
   "packageManager": "pnpm@9.12.2"

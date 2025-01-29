@@ -25,7 +25,6 @@ const characterCommand = {
 };
 
 // /spawn [x] [y] [z]
-chat.addSuggetionAll(spawnCommand);
 chat.registerCmd(spawnCommand.name, (player, args) => {
     if (args.length === 0) player.spawn(0, 0, 72);
     else if (args.length === 3) {
@@ -35,17 +34,16 @@ chat.registerCmd(spawnCommand.name, (player, args) => {
 });
 
 // /vehicle [model]
-chat.addSuggetionAll(vehicleCommand);
 chat.registerCmd(vehicleCommand.name, (player, args) => {
     if (args.length === 0) chat.send(player, `Usage: /${vehicleCommand.name} [model]`);
     else {
         const [model] = args;
-        const vehicle = new alt.Vehicle(model, player.pos.x, player.pos.y, player.pos.z, 0, 0, 0);
+        const vehicle = new alt.Vehicle(model, player.pos, player.rot);
+        player.emitRpc('vehicle:enter', vehicle.id, -1);
     }
 });
 
 // /reload [addon]
-chat.addSuggetionAll(reloadCommand);
 chat.registerCmd(reloadCommand.name, (player, args) => {
     if (args.length === 0) {
         alt.getAllResources().forEach((resource) => {
@@ -58,13 +56,18 @@ chat.registerCmd(reloadCommand.name, (player, args) => {
 });
 
 // /character
-chat.addSuggetionAll(characterCommand);
 chat.registerCmd(characterCommand.name, (player, args) => {
     player.setClothes(11, 15, 0, 0);
     player.setClothes(3, 15, 0, 0);
     player.setClothes(8, 15, 0, 0);
     player.setClothes(6, 1, 0, 0);
+    (player as any).lastPosition = player.pos;
+    player.spawn(402.5164, -1002.847, -99.2587);
     player.emitRpc('view:characterSelection:show');
+});
+
+alt.onRpc('view:characterSelection:done', (player) => {
+    player.spawn((player as any).lastPosition);
 });
 
 alt.on('playerConnect', (player) => {
@@ -72,6 +75,11 @@ alt.on('playerConnect', (player) => {
     chat.send(player, `Welcome to the server ${player.name}`, 1);
     // Sends a message to all players as well as the one who joined
     chat.broadcast(`Player ${player.name} has joined the server`, 1);
+    chat.removeSuggestions(player);
+    chat.addSuggestion(player, spawnCommand);
+    chat.addSuggestion(player, vehicleCommand);
+    chat.addSuggestion(player, reloadCommand);
+    chat.addSuggestion(player, characterCommand);
 });
 
 alt.on('playerDisconnect', (player) => {
