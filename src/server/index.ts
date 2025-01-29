@@ -60,6 +60,10 @@ chat.registerCmd(reloadCommand.name, (player, args) => {
 // /character
 chat.addSuggetionAll(characterCommand);
 chat.registerCmd(characterCommand.name, (player, args) => {
+    player.setClothes(11, 15, 0, 0);
+    player.setClothes(3, 15, 0, 0);
+    player.setClothes(8, 15, 0, 0);
+    player.setClothes(6, 1, 0, 0);
     player.emitRpc('view:characterSelection:show');
 });
 
