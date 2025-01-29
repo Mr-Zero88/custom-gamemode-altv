@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "module": "ESNext",
+        "target": "ESNext",
+        "typeRoots": [
+            "./node_modules/@types",
+            "./node_modules/@altv",
+            "./node_modules/@altv-vchat",
+        ],
+        "moduleResolution": "node",
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}

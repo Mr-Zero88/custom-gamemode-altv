@@ -1,0 +1,2 @@
+main = 'server/index.js'
+type = 'js'
