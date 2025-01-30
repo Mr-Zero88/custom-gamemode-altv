@@ -19,7 +19,7 @@
             {
                 this.Host ="localhost";
                 this.Username = "altv";
-                this.Password = "123456";
+                this.Password = "3210";
                 this.Database = "altv";
             }
 
