@@ -7,13 +7,12 @@ export default {
     parameters: [{ name: 'addon' }],
     execute: async (player, args) => {
         if (args.length === 0) {
-            // alt.getAllResources().forEach((resource) => {
-            //     alt.restartResource(resource.name);
-            // });
             chat.send(player, `Usage: /reload [addon]`);
         } else {
             const [addon] = args;
+            chat.send(player, `Reloading ${addon}...`);
             alt.restartResource(addon);
+            chat.send(player, `Reloaded ${addon}!`);
         }
     },
 }

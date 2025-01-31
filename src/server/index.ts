@@ -4,11 +4,13 @@ import spawn from './commands/spawn';
 import vehicle from './commands/vehicle';
 import reload from './commands/reload';
 import character from './commands/character';
+import getPos from './commands/getPos';
 
 chat.registerCmd(spawn.name, spawn.execute);
 chat.registerCmd(vehicle.name, vehicle.execute);
 chat.registerCmd(reload.name, reload.execute);
 chat.registerCmd(character.name, character.execute);
+chat.registerCmd(getPos.name, getPos.execute);
 
 alt.on('playerConnect', (player) => {
     // Sends a message to the logged-in player
@@ -20,6 +22,7 @@ alt.on('playerConnect', (player) => {
     chat.addSuggestion(player, vehicle);
     chat.addSuggestion(player, reload);
     chat.addSuggestion(player, character);
+    chat.addSuggestion(player, getPos);
 });
 
 alt.on('playerDisconnect', (player) => {
