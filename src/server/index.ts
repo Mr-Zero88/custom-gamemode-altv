@@ -1,5 +1,5 @@
 import * as alt from 'alt-server';
-import * as chat from 'vchat';
+import * as chat from 'alt:vchat';
 import spawn from './commands/spawn';
 import vehicle from './commands/vehicle';
 import reload from './commands/reload';

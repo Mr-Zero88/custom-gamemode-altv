@@ -1,5 +1,5 @@
 import * as alt from 'alt-server';
-import * as chat from 'vchat';
+import * as chat from 'alt:vchat';
 
 export default {
     name: 'vehicle',

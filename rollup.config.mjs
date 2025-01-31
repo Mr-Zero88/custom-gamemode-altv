@@ -10,7 +10,7 @@ export default [
             file: "dist/client/index.js",
             format: 'esm',
         },
-        external: ['alt-server'],
+        external: [''],
         plugins: [typescript(), nodeResolve(), commonjs(), terser()],
     },
     {
@@ -19,7 +19,7 @@ export default [
             file: "dist/server/index.js",
             format: 'esm',
         },
-        external: ['alt-server', 'fs', 'path'],
+        external: ['fs', 'path'],
         plugins: [typescript(), nodeResolve(), commonjs(), terser()],
     }
 ]
