@@ -14,7 +14,7 @@ alt.onRpc('view:characterSelection:show', () => {
     let player = alt.Player.local;
     let height = 0.2;
     let angle = 2.6;
-    let cameraOffset = getCameraOffset(player.pos, player.rot.z, angle, height);
+    let cameraOffset = getCameraOffset(player.pos, player.rot.z + 180, angle, height);
     let bodyCam = native.createCamWithParams('DEFAULT_SCRIPTED_CAMERA', cameraOffset.x, cameraOffset.y, cameraOffset.z, 0, 0, 0, 50, true, 2);
     native.pointCamAtCoord(bodyCam, player.pos.x, player.pos.y, player.pos.z + height);
     native.setCamActive(bodyCam, true);

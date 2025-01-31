@@ -1,4 +1,5 @@
 import * as alt from 'alt-server';
+import { Command } from '..';
 
 export default {
     name: 'character',
@@ -9,12 +10,13 @@ export default {
         player.setClothes(8, 15, 0, 0);
         player.setClothes(6, 1, 0, 0);
         (player as any).lastPosition = player.pos;
-        player.spawn(402.5164, -1002.847, -99.2587);
+        player.rot = new alt.Vector3(0, 0, Math.PI);
+        player.pos = new alt.Vector3(402.8175964355469, -996.2901000976562, -99.0146484375);
         setTimeout(() => {
             player.emitRpc('view:characterSelection:show');
-        }, 1000);
+        }, 100);
     },
-}
+} as Command;
 
 alt.onRpc('view:characterSelection:done', (player) => {
     player.spawn((player as any).lastPosition);
