@@ -10,7 +10,7 @@ export default [
             file: "dist/client/index.js",
             format: 'esm',
         },
-        external: [''],
+        external: ['alt-client', 'natives'],
         plugins: [typescript(), nodeResolve(), commonjs(), terser()],
     },
     {
@@ -19,7 +19,7 @@ export default [
             file: "dist/server/index.js",
             format: 'esm',
         },
-        external: ['fs', 'path'],
+        external: ['alt:vchat', 'alt-server', 'fs', 'path'],
         plugins: [typescript(), nodeResolve(), commonjs(), terser()],
     }
 ]
