@@ -6,23 +6,38 @@ import reload from './commands/reload';
 import character from './commands/character';
 import getPos from './commands/getPos';
 
-chat.registerCmd(spawn.name, spawn.execute);
-chat.registerCmd(vehicle.name, vehicle.execute);
-chat.registerCmd(reload.name, reload.execute);
-chat.registerCmd(character.name, character.execute);
-chat.registerCmd(getPos.name, getPos.execute);
+interface Command extends chat.CommandSuggestion {
+    execute: chat.CommandHandler
+}
+
+const commands: Array<Command> = [spawn, vehicle, reload, character, getPos];
+
+commands.forEach((command) => {
+    chat.registerCmd(command.name, command.execute);
+});
 
 alt.on('playerConnect', (player) => {
     // Sends a message to the logged-in player
     chat.send(player, `Welcome to the server ${player.name}`, 1);
     // Sends a message to all players as well as the one who joined
     chat.broadcast(`Player ${player.name} has joined the server`, 1);
+    // Remove all suggestions for the player
     chat.removeSuggestions(player);
-    chat.addSuggestion(player, spawn);
-    chat.addSuggestion(player, vehicle);
-    chat.addSuggestion(player, reload);
-    chat.addSuggestion(player, character);
-    chat.addSuggestion(player, getPos);
+    // Add all suggestions for the player
+    commands.forEach((command) => {
+        chat.addSuggestion(player, { name: command.name, description: command.description, parameters: command.parameters });
+    });
+});
+
+alt.on('resourceStart', () => {
+    alt.Player.all.forEach((player) => {
+        // Remove all suggestions for the player
+        chat.removeSuggestions(player);
+        // Add all suggestions for the player
+        commands.forEach((command) => {
+            chat.addSuggestion(player, { name: command.name, description: command.description, parameters: command.parameters });
+        });
+    });
 });
 
 alt.on('playerDisconnect', (player) => {
