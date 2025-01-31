@@ -6,12 +6,13 @@ import reload from './commands/reload';
 import character from './commands/character';
 import getPos from './commands/getPos';
 import weapon from './commands/weapon';
+import noclip from './commands/noclip';
 
 export interface Command extends chat.CommandSuggestion {
     execute: chat.CommandHandler
 }
 
-const commands: Array<Command> = [spawn, vehicle, reload, character, getPos, weapon];
+const commands: Array<Command> = [spawn, vehicle, reload, character, getPos, weapon, noclip];
 
 commands.forEach((command) => {
     chat.registerCmd(command.name, command.execute);
